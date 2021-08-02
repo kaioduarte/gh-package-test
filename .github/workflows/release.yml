@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 14.x
           registry-url: "https://npm.pkg.github.com"
-      - run: npm config set //npm.pkg.github.com/:_authToken ${{ secrets.NPM_TOKEN }}
+      # - run: npm config set //npm.pkg.github.com/:_authToken ${{ secrets.NPM_TOKEN }}
       - run: npm install
       - run: npm run build
       - run: npm publish
