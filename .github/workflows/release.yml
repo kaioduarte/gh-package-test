@@ -10,15 +10,13 @@ jobs:
     permissions:
       contents: read
       packages: write
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 14.x
-
-      - run: npm config set '//npm.pkg.github.com/:_authToken' "${NODE_AUTH_TOKEN}"
+      - run: npm config set "@kaioduarte:registry" https://npm.pkg.github.com/kaioduarte
+      - run: npm config set '//npm.pkg.github.com/:_authToken' "${{ secrets.NPM_TOKEN }}"
       - run: npm install
       - run: npm run build
       - run: npm publish
