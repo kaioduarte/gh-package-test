@@ -5,6 +5,10 @@
   "files": [
     "lib/"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kaioduarte/gh-package-test.git"
+  },
   "author": "kaioduarte",
   "scripts": {
     "build": "./src/protoc.sh"
