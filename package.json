@@ -1,5 +1,5 @@
 {
-  "name": "gh-test-package",
+  "name": "@kaioduarte/gh-test-package",
   "version": "1.0.0",
   "license": "MIT",
   "files": [
@@ -8,9 +8,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/kaioduarte/gh-package-test.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/kaioduarte"
   },
   "author": "kaioduarte",
   "scripts": {
