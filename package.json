@@ -9,6 +9,9 @@
     "type": "git",
     "url": "ssh://git@github.com/kaioduarte/gh-package-test.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "author": "kaioduarte",
   "scripts": {
     "build": "./src/protoc.sh"
