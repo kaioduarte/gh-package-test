@@ -12,6 +12,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
+  "author": "kaioduarte",
   "scripts": {
     "build": "./src/protoc.sh"
   },
