@@ -16,6 +16,7 @@ jobs:
 
       - run: yarn install
       - run: yarn build
+      - run: yarn publish
 
       - name: Release
         env:
