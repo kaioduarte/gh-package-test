@@ -1,0 +1,222 @@
+syntax = "proto3";
+
+package users;
+
+service User {
+  // Profiles
+  rpc ListAccountProfiles (ListAccountProfilesRequest) returns (ListAccountProfilesResponse);
+  rpc CreateAccountProfile (CreateAccountProfileRequest) returns (AccountProfile);
+  rpc GetAccountProfile (GetAccountProfileRequest) returns (AccountProfile);
+  rpc UpdateAccountProfile (UpdateAccountProfileRequest) returns (AccountProfile);
+  rpc RemoveAccountProfile (DeleteProfileRequest) returns (DeleteProfileResponse);
+
+  // Watchlist
+  rpc GetWatchlist (GetWatchlistRequest) returns (Watchlist);
+  rpc AddToWatchlist (AddToWatchlistRequest) returns (Watchlist);
+  rpc RemoveFromWatchlist (RemoveFromWatchlistRequest) returns (Watchlist);
+
+  // Media Activity
+  rpc GetMediaActivity (GetMediaActivityRequest) returns (MediaActivity);
+  rpc UpdateMediaActivity (UpdateMediaActivityRequest) returns (UpdateMediaActivityResponse);
+
+  // Watch History
+  rpc GetWatchHistory (GetWatchHistoryRequest) returns (GetWatchHistoryResponse);
+  rpc AddToWatchHistory (AddToWatchHistoryRequest) returns (AddToWatchHistoryResponse);
+  rpc RemoveFromWatchHistory (RemoveFromWatchHistoryRequest) returns (RemoveFromWatchHistoryResponse);
+
+  // Continue Watching
+  rpc GetContinueWatching (GetContinueWatchingRequest) returns (ContinueWatching);
+  rpc AddToContinueWatching (AddToContinueWatchingRequest) returns (ContinueWatching);
+  rpc RemoveFromContinueWatching (RemoveFromContinueWatchingRequest) returns (ContinueWatching);
+}
+
+/**
+  Messages are defined below. See style here: https://developers.google.com/protocol-buffers/docs/style
+
+  Use CamelCase (with an initial capital) for message names – for example, SongServerRequest.
+
+  Use underscore_separated_names for field names (including oneof field and extension names) – for example, song_name
+ */
+
+
+// Profiles
+enum ProfileType {
+  ADULT = 0;
+  KIDS = 1;
+}
+
+message ListAccountProfilesRequest {
+  string account_id = 1;
+}
+
+message ListAccountProfilesResponse {
+  message ShortAccountProfile {
+    string id = 1;
+    string name = 2;
+    ProfileType type = 3;
+    string avatar_url = 4;
+  }
+  repeated ShortAccountProfile profiles = 1;
+}
+
+message CreateAccountProfileRequest {
+  string account_id = 1;
+  string name = 2;
+  ProfileType type = 3;
+  string avatar_url = 4;
+}
+
+message GetAccountProfileRequest {
+  string account_id = 1;
+  string profile_id = 2;
+}
+
+message AccountProfile {
+  string id = 1;
+  string name = 2;
+  ProfileType type = 3;
+  string avatar_url = 4;
+  message Settings {
+    string language = 1;
+    string preferred_audio = 2;
+    string preferred_subtitles = 3;
+    bool subtitles_on = 4;
+    bool autoplay_next = 5;
+    repeated string allowed_ratings = 6;
+  }
+  Settings settings = 10;
+}
+
+message UpdateAccountProfileRequest {
+  string account_id = 1;
+  string profile_id = 2;
+  AccountProfile profile = 3;
+}
+
+message DeleteProfileRequest {
+  string account_id = 1;
+  string profile_id = 2;
+}
+
+message DeleteProfileResponse {
+
+}
+
+// Watchlist
+message GetWatchlistRequest {
+  string profile_id = 1;
+}
+
+message AddToWatchlistRequest {
+  string profile_id = 1;
+  repeated string urn = 2;
+}
+
+message RemoveFromWatchlistRequest {
+  string profile_id = 1;
+  repeated string urn = 2;
+}
+
+message WatchlistElement {
+  string urn = 1;
+  string added_on = 2;
+}
+message Watchlist {
+  repeated WatchlistElement elements = 1;
+}
+
+// Media Activity
+enum MediaUserRating {
+  UNKNOWN = 0;
+  LIKE = 1;
+  DISLIKE = 2;
+}
+
+message GetMediaActivityRequest {
+  string profile_id = 1;
+  string media_urn = 2;
+}
+
+message WatchStatus {
+  int32 position = 1;
+  bool completed = 2;
+  string updated_on = 3;
+  string next_media_urn = 10; // for shows TODO: better naming?
+}
+
+message MediaActivity {
+  string media_urn = 1;
+  WatchStatus watch_status = 2;
+  MediaUserRating user_rating = 3;
+}
+
+message UpdateMediaActivityRequest {
+  string profile_id = 1;
+  string media_urn = 2;
+  MediaActivity media_activity = 3;
+  bool enable_continue_watching = 4;
+}
+
+message UpdateMediaActivityResponse {
+
+}
+
+// Watch History
+message GetWatchHistoryRequest {
+  string profile_id = 1;
+  int32 next_token = 2;
+  int32 result_per_page = 3;
+}
+
+message GetWatchHistoryResponse {
+  int32 next_token = 1;
+  message WatchActivity {
+    string media_urn = 1;
+    string updated_on = 2;
+  }
+  repeated WatchActivity activity = 2;
+}
+
+message AddToWatchHistoryRequest {
+  string profile_id = 1;
+  string media_urn = 2;
+}
+
+message AddToWatchHistoryResponse {
+  string media_urn = 1;
+  string added_on = 2;
+}
+
+message RemoveFromWatchHistoryRequest {
+  string profile_id = 1;
+  string media_urn = 2;
+}
+
+message RemoveFromWatchHistoryResponse {
+
+}
+
+// Continue Watching
+message ContinueWatchingElement {
+  string urn = 1;
+  string added_on = 2;
+}
+
+message ContinueWatching {
+  repeated ContinueWatchingElement elements = 1;
+}
+
+message GetContinueWatchingRequest {
+  string profile_id = 1;
+}
+
+message AddToContinueWatchingRequest {
+  string profile_id = 1;
+  repeated string urn = 2;
+}
+
+message RemoveFromContinueWatchingRequest {
+  string profile_id = 1;
+  repeated string urn = 2;
+}
+
