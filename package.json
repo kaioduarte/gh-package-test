@@ -3,7 +3,8 @@
   "version": "1.0.2",
   "license": "MIT",
   "files": [
-    "generated/",
+    "*.js",
+    "*.d.ts",
     "protos/"
   ],
   "repository": {

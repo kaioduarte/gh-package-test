@@ -8,9 +8,9 @@ GRPC_TOOLS_NODE_PROTOC_PLUGIN="../../node_modules/.bin/grpc_tools_node_protoc_pl
 GRPC_TOOLS_NODE_PROTOC="../../node_modules/.bin/grpc_tools_node_protoc"
 
 PROTO_OUTPUT_DIR="../../protos"
-GENERATED_OUTPUT_DIR="../../generated"
+GENERATED_OUTPUT_DIR="../.."
 
-OutputDirPaths=($PROTO_OUTPUT_DIR  $GENERATED_OUTPUT_DIR)
+OutputDirPaths=($PROTO_OUTPUT_DIR)
  
 # Create output directories
 for path in ${OutputDirPaths[*]}; do
