@@ -35,14 +35,14 @@ for filename in ./*; do
   # JavaScript code generating
   ${GRPC_TOOLS_NODE_PROTOC} \
     --js_out=import_style=commonjs,binary:$GENERATED_OUTPUT_DIR \
-    --ts_out=grpc_js:$GENERATED_OUTPUT_DIR \
-    --grpc_out=grpc_js:$GENERATED_OUTPUT_DIR \
+    --ts_out=$GENERATED_OUTPUT_DIR \
+    --grpc_out=$GENERATED_OUTPUT_DIR \
     --plugin=protoc-gen-grpc="${GRPC_TOOLS_NODE_PROTOC_PLUGIN}" \
     "${filename}"
 
   ${GRPC_TOOLS_NODE_PROTOC} \
     --plugin=protoc-gen-ts="${PROTOC_GEN_TS_PATH}" \
-    --ts_out=grpc_js:$GENERATED_OUTPUT_DIR \
+    --ts_out=$GENERATED_OUTPUT_DIR \
     "${filename}"
 
 done
