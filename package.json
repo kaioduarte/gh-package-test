@@ -1,9 +1,10 @@
 {
   "name": "@kaioduarte/gh-test-package",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "files": [
-    "lib/"
+    "generated/",
+    "protos/"
   ],
   "repository": {
     "type": "git",
